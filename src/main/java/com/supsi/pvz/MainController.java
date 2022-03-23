@@ -7,9 +7,13 @@ public class MainController {
 
   @FXML
   public GridPane gameGrid;
-
+	
+  @FXML  
+  public GridPane plantsSelector;
+    
   @FXML
   public void initialize() {
     gameGrid.setGridLinesVisible(true);
+    plantsSelector.setGridLinesVisible(true);
   }
 }
