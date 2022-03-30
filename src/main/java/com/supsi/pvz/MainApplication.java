@@ -20,6 +20,7 @@ public class MainApplication extends Application {
     Locale.setDefault(Locale.ENGLISH);
     FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/main-menu.fxml"), rscBundle);
     Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+    stage.setResizable(false);
     stage.setTitle(windowTitle);
     stage.setScene(scene);
     stage.show();
@@ -29,6 +30,7 @@ public class MainApplication extends Application {
     FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(fxml), rscBundle);
     Stage stage = (Stage)Window.getWindows().get(0);
     Scene scene = new Scene(fxmlLoader.load(), stage.getScene().getWidth(), stage.getScene().getHeight());
+    stage.setResizable(false);
     stage.setTitle(windowTitle);
     stage.setScene(scene);
     stage.show();
