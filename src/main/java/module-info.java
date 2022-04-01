@@ -6,4 +6,6 @@ module com.supsi.pvz {
 
   opens com.supsi.pvz to javafx.fxml;
   exports com.supsi.pvz;
+  exports com.supsi.pvz.controllers;
+  opens com.supsi.pvz.controllers to javafx.fxml;
 }

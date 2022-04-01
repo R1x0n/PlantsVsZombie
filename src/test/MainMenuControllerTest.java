@@ -1,5 +1,5 @@
 import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
-import com.supsi.pvz.MainMenuController;
+import com.supsi.pvz.controllers.MainMenuController;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.Test;

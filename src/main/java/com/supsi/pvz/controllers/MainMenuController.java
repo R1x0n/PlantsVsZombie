@@ -1,4 +1,6 @@
-package com.supsi.pvz;
+package com.supsi.pvz.controllers;
+
+import com.supsi.pvz.MainApplication;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +13,7 @@ public class MainMenuController {
 
     @FXML
     public Button start;
-    
+
     @FXML
     public Button exit;
 
