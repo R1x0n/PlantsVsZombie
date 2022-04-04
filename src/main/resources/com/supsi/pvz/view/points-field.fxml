@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
-
-<Pane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.supsi.pvz.controllers.PointsFieldController">
-    <Text fx:id="pointsField" strokeType="OUTSIDE" text="test" strokeWidth="0.0" wrappingWidth="75.81298828125"/>
-</Pane>
