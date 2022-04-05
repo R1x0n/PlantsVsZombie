@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.almasb</groupId>
+            <artifactId>fxgl</artifactId>
+            <version>17.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.supsi.backend</groupId>
             <artifactId>backend</artifactId>
             <version>1.0.0</version>

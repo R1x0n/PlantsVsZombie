@@ -1,42 +1,22 @@
 package com.supsi.frontend;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import com.almasb.fxgl.app.GameApplication;
+import com.almasb.fxgl.app.GameSettings;
 
-import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
+public class MainApplication extends GameApplication {
 
-public class MainApplication extends Application {
+    private static final String windowTitle = "PvZ";
 
-  private static final String windowTitle = "PvZ";
-  private static final ResourceBundle rscBundle = ResourceBundle.getBundle("i18n/strings");
+    @Override
+    protected void initSettings(GameSettings settings) {
+        settings.setMainMenuEnabled(true);
 
-  @Override
-  public void start(Stage stage) throws IOException {
-    Locale.setDefault(Locale.ENGLISH);
-    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/view/main-menu.fxml"), rscBundle);
-    Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-    stage.setResizable(false);
-    stage.setTitle(windowTitle);
-    stage.setScene(scene);
-    stage.show();
-  }
+        settings.setTitle(windowTitle);
+        settings.setWidth(1000);
+        settings.setHeight(800);
+    }
 
-  public static void changeScene(String fxml) throws IOException {
-    Stage stage = (Stage)Window.getWindows().get(0);
-    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/view/main.fxml"), rscBundle);
-    Scene scene = new Scene(fxmlLoader.load(), stage.getScene().getWidth(), stage.getScene().getHeight());
-    stage.setResizable(false);
-    stage.setTitle(windowTitle);
-    stage.setScene(scene);
-    stage.show();
-  }
-
-  public static void main(String[] args) {
-    launch();
-  }
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

@@ -4,6 +4,7 @@ module com.supsi.frontend {
 
     requires org.controlsfx.controls;
     requires com.supsi.backend;
+    requires com.almasb.fxgl.all;
 
     opens com.supsi.frontend to javafx.fxml;
     exports com.supsi.frontend;
