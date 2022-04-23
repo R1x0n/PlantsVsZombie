@@ -12,6 +12,7 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppHeight;
@@ -56,11 +57,15 @@ public class MainApplication extends GameApplication {
 
         run(() -> spawn("sun", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
 
+        // y positions of zombies to spawn + /2 zombie height
+        int[] zombieSpawnPositions = {280, 380, 480, 580, 680};
+        Random random = new Random();
+
         run(() -> {
             double x = getAppWidth() + 30; // + 30 = shape init outside of screen
-            spawn("zombie_tank", x, FXGLMath.random(20, getAppHeight() - 20));
-            spawn("zombie_runner", x, FXGLMath.random(20, getAppHeight() - 20));
-            spawn("zombie_normal", x, FXGLMath.random(20, getAppHeight() - 20));
+            var selectedZombie = ZombieFactory.zombies[random.nextInt(ZombieFactory.zombies.length)];
+            var selectedPosition = zombieSpawnPositions[random.nextInt(zombieSpawnPositions.length)];
+            spawn(selectedZombie, x, selectedPosition);
         }, Duration.seconds(2));
     }
 

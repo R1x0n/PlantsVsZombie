@@ -11,6 +11,8 @@ import com.supsi.frontend.components.zombie.TankZombieComponent;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 
 public class ZombieFactory implements EntityFactory {
+  public static String[] zombies = {"zombie_tank", "zombie_runner", "zombie_normal"};
+
   @Spawns("zombie_tank")
   public Entity newZombieTank(SpawnData data) {
     return entityBuilder(data)
