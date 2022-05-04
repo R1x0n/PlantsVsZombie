@@ -13,4 +13,6 @@ module com.supsi.backend {
     opens com.supsi.backend.observers.utils;
     opens com.supsi.backend.model.plants;
     opens com.supsi.backend.model.zombies;
+    exports com.supsi.backend.state;
+    opens com.supsi.backend.state;
 }
