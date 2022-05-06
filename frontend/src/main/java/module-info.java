@@ -11,4 +11,6 @@ module com.supsi.frontend {
     opens com.supsi.frontend.controllers to javafx.fxml;
     exports com.supsi.frontend.factories;
     opens com.supsi.frontend.factories to javafx.fxml;
+    exports com.supsi.frontend.observers;
+    opens com.supsi.frontend.observers to javafx.fxml;
 }

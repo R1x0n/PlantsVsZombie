@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameSettings;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
 import com.supsi.backend.Utils;
+import com.supsi.frontend.observers.KillCounterObserver;
 import com.supsi.frontend.factories.GridFactory;
 import com.supsi.frontend.factories.SunFactory;
 import com.supsi.frontend.factories.ZombieFactory;
@@ -23,11 +24,12 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 public class MainApplication extends GameApplication {
 
     private static final String windowTitle = "PvZ";
+    private final KillCounterObserver killCounterController = new KillCounterObserver();
     private final Game mainGame = Game.getInstance();
 
     private void checkGameStatus(Game game) {
         if (game.getStatus() == GameStatusTypes.GAMEOVER) {
-            getDialogService().showMessageBox("GAME OVER! You killed {COUNTER ZOMBIES} zombies!\n\nPress OK to start a new game!", getGameController()::startNewGame);
+            getDialogService().showMessageBox("GAME OVER! You killed " + killCounterController.counter + " zombies!\n\nPress OK to start a new game!", getGameController()::startNewGame);
         }
     }
 
