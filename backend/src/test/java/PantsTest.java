@@ -9,7 +9,7 @@ public class PantsTest {
     public void takeDamageTest() {
         Sunflower sf = new Sunflower();
         AttackPlant ap = new AttackPlant();
-        DefencePlant dp = new DefencePlant();
+        DefensePlant dp = new DefensePlant();
 
         assertEquals(80, sf.takeDamage(20));
         assertEquals(80, ap.takeDamage(20));

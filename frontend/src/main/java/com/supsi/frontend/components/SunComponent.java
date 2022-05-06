@@ -3,9 +3,10 @@ package com.supsi.frontend.components;
 import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
 import com.almasb.fxgl.entity.component.Component;
+import com.supsi.backend.commands.SunClickedCommand;
 import com.supsi.backend.Utils;
 import com.supsi.backend.model.others.Sun;
-
+import com.supsi.backend.commands.utils.Command;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -13,16 +14,16 @@ import javafx.scene.shape.Circle;
 
 public class SunComponent extends Component {
 
-    private final Sun sun;
+    private final Command sunClickedCommand;
     private final int finalY = Utils.randomCoordinate(200, 700);
     private final Component movementComponent = new ProjectileComponent(new Point2D(0, 1), FXGLMath.random(50, 150));
 
     public SunComponent() {
-        this.sun = new Sun();
+        sunClickedCommand = new SunClickedCommand(new Sun());
     }
 
     public void onClick() {
-        sun.addPoints(50);
+        sunClickedCommand.execute();
     }
 
     @Override
