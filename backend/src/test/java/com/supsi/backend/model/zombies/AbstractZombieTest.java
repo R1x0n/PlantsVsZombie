@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ConcreteZombie extends AbstractZombie {
+class ConcreteZombie extends Zombie {
     public ConcreteZombie(int health, int damage, int speed) {
       super(health, damage, speed);
     }

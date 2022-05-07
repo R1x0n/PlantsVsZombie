@@ -2,13 +2,14 @@ package com.supsi.frontend;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.supsi.backend.Utils;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
-import com.supsi.backend.Utils;
+import com.supsi.frontend.factories.gameGrid.GridFactory;
+import com.supsi.frontend.factories.plant.PlantFactory;
+import com.supsi.frontend.factories.sun.SunFactory;
+import com.supsi.frontend.factories.zombie.ZombieFactory;
 import com.supsi.frontend.observers.KillCounterObserver;
-import com.supsi.frontend.factories.GridFactory;
-import com.supsi.frontend.factories.SunFactory;
-import com.supsi.frontend.factories.ZombieFactory;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
@@ -16,7 +17,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
-import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
+import static com.almasb.fxgl.dsl.FXGL.run;
+import static com.almasb.fxgl.dsl.FXGL.spawn;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppWidth;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
@@ -57,6 +61,7 @@ public class MainApplication extends GameApplication {
         getGameWorld().addEntityFactory(new SunFactory());
         getGameWorld().addEntityFactory(new ZombieFactory());
         getGameWorld().addEntityFactory(new GridFactory());
+        getGameWorld().addEntityFactory(new PlantFactory());
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.supsi.frontend.components.zombie;
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
 import com.almasb.fxgl.entity.component.Component;
 import com.supsi.backend.state.Game;
-import com.supsi.backend.model.zombies.AbstractZombie;
+import com.supsi.backend.model.zombies.Zombie;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -11,9 +11,9 @@ import javafx.scene.shape.Rectangle;
 
 
 public abstract class ZombieComponent extends Component {
-    private final AbstractZombie zombie;
+    private final Zombie zombie;
 
-    public ZombieComponent(AbstractZombie zombie) {
+    public ZombieComponent(Zombie zombie) {
         this.zombie = zombie;
     }
 

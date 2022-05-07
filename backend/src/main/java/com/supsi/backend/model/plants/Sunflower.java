@@ -5,7 +5,7 @@ import com.supsi.backend.observers.Points;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Sunflower extends AbstractPlant {
+public class Sunflower extends Plant {
   private final Points points = Points.getInstance();
 
   public Sunflower() {

@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PantsTest {
+public class PlantsTest {
 
     @Test
     public void takeDamageTest() {

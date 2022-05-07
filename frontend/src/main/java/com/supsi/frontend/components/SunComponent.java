@@ -22,7 +22,7 @@ public class SunComponent extends Component {
         sunClickedCommand = new SunClickedCommand(new Sun());
     }
 
-    public void onClick() {
+    private void onClick() {
         sunClickedCommand.execute();
     }
 

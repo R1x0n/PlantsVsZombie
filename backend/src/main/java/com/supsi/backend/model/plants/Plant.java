@@ -1,12 +1,12 @@
 package com.supsi.backend.model.plants;
 
-public abstract class AbstractPlant {
+public abstract class Plant {
 
     int health;
     int attack;
     int sunGeneration;
 
-    public AbstractPlant(int health, int attack, int sunGeneration) {
+    public Plant(int health, int attack, int sunGeneration) {
         this.health = health;
         this.attack = attack;
         this.sunGeneration = sunGeneration;

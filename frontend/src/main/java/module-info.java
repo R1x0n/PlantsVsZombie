@@ -7,10 +7,19 @@ module com.supsi.frontend {
     requires com.supsi.backend;
 
     exports com.supsi.frontend;
-    exports com.supsi.frontend.controllers;
-    opens com.supsi.frontend.controllers to javafx.fxml;
-    exports com.supsi.frontend.factories;
-    opens com.supsi.frontend.factories to javafx.fxml;
+
+    exports com.supsi.frontend.factories.plant;
+    opens com.supsi.frontend.factories.plant to javafx.fxml;
+
+    exports com.supsi.frontend.factories.gameGrid;
+    opens com.supsi.frontend.factories.gameGrid to javafx.fxml;
+
+    exports com.supsi.frontend.factories.zombie;
+    opens com.supsi.frontend.factories.zombie to javafx.fxml;
+
+    exports com.supsi.frontend.factories.sun;
+    opens com.supsi.frontend.factories.sun to javafx.fxml;
+
     exports com.supsi.frontend.observers;
     opens com.supsi.frontend.observers to javafx.fxml;
 }

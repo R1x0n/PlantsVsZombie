@@ -1,4 +1,4 @@
-package com.supsi.frontend.factories;
+package com.supsi.frontend.factories.sun;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
@@ -12,7 +12,7 @@ public class SunFactory implements EntityFactory {
     @Spawns("sun")
     public Entity newSun(SpawnData data) {
         return entityBuilder(data)
-                .type(EntityTypes.SUN)
+                .type(SunTypes.SUN)
                 .collidable()
                 .with(new SunComponent())
                 .onClick(Entity::removeFromWorld)

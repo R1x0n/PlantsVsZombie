@@ -1,12 +1,12 @@
 package com.supsi.backend.model.zombies;
 
-public abstract class AbstractZombie {
+public abstract class Zombie {
 
     private int health;
     private final double eatingRate;
     private final double speed;
 
-    public AbstractZombie(int health, double eatingRate, double speed) {
+    public Zombie(int health, double eatingRate, double speed) {
         this.health = health;
         this.eatingRate = eatingRate;
         this.speed = speed;

@@ -1,4 +1,4 @@
-package com.supsi.frontend.factories;
+package com.supsi.frontend.factories.zombie;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
@@ -16,7 +16,7 @@ public class ZombieFactory implements EntityFactory {
   @Spawns("zombie_tank")
   public Entity newZombieTank(SpawnData data) {
     return entityBuilder(data)
-            .type(EntityTypes.ZOMBIE_TANK)
+            .type(ZombieTypes.ZOMBIE_TANK)
             .with(new TankZombieComponent())
             .collidable()
             .build();
@@ -25,7 +25,7 @@ public class ZombieFactory implements EntityFactory {
   @Spawns("zombie_normal")
   public Entity newZombie(SpawnData data) {
     return entityBuilder(data)
-            .type(EntityTypes.ZOMBIE_NORMAL)
+            .type(ZombieTypes.ZOMBIE_NORMAL)
             .with(new NormalZombieComponent())
             .collidable()
             .build();
@@ -34,7 +34,7 @@ public class ZombieFactory implements EntityFactory {
   @Spawns("zombie_runner")
   public Entity newZombieRunner(SpawnData data) {
     return entityBuilder(data)
-            .type(EntityTypes.ZOMBIE_RUNNER)
+            .type(ZombieTypes.ZOMBIE_RUNNER)
             .with(new RunnerZombieComponent())
             .collidable()
             .build();
