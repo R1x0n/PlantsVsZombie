@@ -4,7 +4,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import com.supsi.frontend.components.projectile.BasicProjectile;
+import com.supsi.frontend.components.projectile.BasicProjectileComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -16,8 +16,8 @@ public class ProjectileFactory implements EntityFactory {
     public Entity newNormalProjectile(SpawnData data) {
         return entityBuilder(data)
                 .type(ProjectileTypes.PROJECTILE_NORMAL)
-                .viewWithBBox(new Circle(BasicProjectile.getV(), BasicProjectile.getV1(), BasicProjectile.getV2(), Color.TRANSPARENT))
-                .with(new BasicProjectile())
+                .viewWithBBox(new Circle(BasicProjectileComponent.getV(), BasicProjectileComponent.getV1(), BasicProjectileComponent.getV2(), Color.TRANSPARENT))
+                .with(new BasicProjectileComponent())
                 .collidable()
                 .build();
     }

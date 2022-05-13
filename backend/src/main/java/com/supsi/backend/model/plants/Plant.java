@@ -1,7 +1,5 @@
 package com.supsi.backend.model.plants;
 
-import com.supsi.backend.model.others.Configs;
-
 public abstract class Plant {
 
     private int health;
@@ -42,5 +40,4 @@ public abstract class Plant {
     public boolean isAlive() {
         return isAlive;
     }
-
 }

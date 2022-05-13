@@ -3,11 +3,14 @@ package com.supsi.frontend.components.projectile;
 
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
 import com.almasb.fxgl.entity.component.Component;
+import com.supsi.backend.commands.HitZombieCommand;
+import com.supsi.backend.commands.utils.Command;
+import com.supsi.backend.model.zombies.Zombie;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class BasicProjectile extends Component {
+public class BasicProjectileComponent extends Component {
 
     private final Component movementComponent = new ProjectileComponent(new Point2D(1, 0), 200);
 
@@ -27,9 +30,15 @@ public class BasicProjectile extends Component {
         return getValues()[2];
     }
 
+    public void hitZombie(Zombie zombie) {
+        entity.removeFromWorld();
+        Command command = new HitZombieCommand(zombie);
+        command.execute();
+    }
+
     @Override
     public void onAdded() {
-        var view = new Circle(BasicProjectile.getV(), BasicProjectile.getV1(), BasicProjectile.getV2(), Color.RED);
+        var view = new Circle(BasicProjectileComponent.getV(), BasicProjectileComponent.getV1(), BasicProjectileComponent.getV2(), Color.RED);
         entity.getViewComponent().addChild(view);
         entity.addComponent(movementComponent);
     }

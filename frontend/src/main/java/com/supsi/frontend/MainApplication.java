@@ -3,9 +3,12 @@ package com.supsi.frontend;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.supsi.backend.Utils;
+import com.supsi.backend.observers.SelectedPlant;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
+import com.supsi.frontend.components.plant.AttackPlantComponent;
 import com.supsi.frontend.components.plant.PlantComponent;
+import com.supsi.frontend.components.projectile.BasicProjectileComponent;
 import com.supsi.frontend.components.zombie.ZombieComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
 import com.supsi.frontend.factories.plant.PlantFactory;
@@ -66,11 +69,11 @@ public class MainApplication extends GameApplication {
     }
 
     private void initFactories() {
-      getGameWorld().addEntityFactory(new SunFactory());
-      getGameWorld().addEntityFactory(new ZombieFactory());
-      getGameWorld().addEntityFactory(new GridFactory());
-      getGameWorld().addEntityFactory(new SelectorGridFactory());
-      getGameWorld().addEntityFactory(new PlantFactory());
+        getGameWorld().addEntityFactory(new SunFactory());
+        getGameWorld().addEntityFactory(new ZombieFactory());
+        getGameWorld().addEntityFactory(new GridFactory());
+        getGameWorld().addEntityFactory(new SelectorGridFactory());
+        getGameWorld().addEntityFactory(new PlantFactory());
         getGameWorld().addEntityFactory(new ProjectileFactory());
     }
 
@@ -81,7 +84,7 @@ public class MainApplication extends GameApplication {
         initFactories();
 
         spawn("gameGrid", 265, 200);
-        spawn("selectorGrid", 20 ,20);
+        spawn("selectorGrid", 20, 20);
 
         run(() -> spawn("sun", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
 
@@ -108,9 +111,13 @@ public class MainApplication extends GameApplication {
             var plantComponent = (PlantComponent) plant.getComponents().stream().filter(PlantComponent.class::isInstance).findFirst().get();
             var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().get();
             zombieComponent.eating(plantComponent.getPlant());
-       });
+        });
 
-        onCollisionBegin(ProjectileTypes.PROJECTILE_NORMAL, ZombieTypes.ZOMBIE, (projectile, zombie) -> projectile.removeFromWorld());
+        onCollisionBegin(ProjectileTypes.PROJECTILE_NORMAL, ZombieTypes.ZOMBIE, (projectile, zombie) -> {
+            var projectileComponent = (BasicProjectileComponent) projectile.getComponents().stream().filter(BasicProjectileComponent.class::isInstance).findFirst().get();
+            var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().get();
+            projectileComponent.hitZombie(zombieComponent.getZombie());
+        });
     }
 
     public static void main(String[] args) {

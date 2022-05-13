@@ -33,7 +33,8 @@ class AbstractZombieTest {
   @Test
   void takeDamage() {
     ConcreteZombie concreteZombie = new ConcreteZombie(10, 10, 10);
-    assertEquals(5, concreteZombie.takeDamage(5));
-    assertEquals(0, concreteZombie.takeDamage(10));
+    var currentHealth = concreteZombie.getHealth();
+    concreteZombie.takeDamage(5);
+    assertEquals(currentHealth - 5, concreteZombie.getHealth());
   }
 }

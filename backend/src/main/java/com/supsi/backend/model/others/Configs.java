@@ -25,19 +25,23 @@ public class Configs {
         return config;
     }
 
-    public Integer getPointsPerSun() {
+    public int getProjectileDamage() {
+        return Integer.parseInt(properties.getProperty("projectileDamage"));
+    }
+
+    public int getPointsPerSun() {
         return Integer.parseInt(properties.getProperty("pointsPerSun"));
     }
 
-    public Integer getSunflowerCost() {
+    public int getSunflowerCost() {
         return Integer.parseInt(properties.getProperty("sunflowerCost"));
     }
 
-    public Integer getAttackPlantCost() {
+    public int getAttackPlantCost() {
         return Integer.parseInt(properties.getProperty("attackPlantCost"));
     }
 
-    public Integer getDefensePlantCost() {
+    public int getDefensePlantCost() {
         return Integer.parseInt(properties.getProperty("defensePlantCost"));
     }
 }

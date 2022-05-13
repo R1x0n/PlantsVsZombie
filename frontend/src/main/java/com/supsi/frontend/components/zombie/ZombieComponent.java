@@ -48,6 +48,10 @@ public abstract class ZombieComponent extends Component {
         }, Duration.millis(500));
     }
 
+    public Zombie getZombie() {
+        return zombie;
+    }
+
     @Override
     public void onAdded() {
         var shape = new Rectangle(getWidth(), getHeight(), Color.GREEN);
@@ -57,8 +61,10 @@ public abstract class ZombieComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        if (entity.getX() <= 264) {
+        if (!zombie.isAlive())
+            entity.removeFromWorld();
+
+        if (entity.getX() <= 264)
             Game.getInstance().setGameOver();
-        }
     }
 }
