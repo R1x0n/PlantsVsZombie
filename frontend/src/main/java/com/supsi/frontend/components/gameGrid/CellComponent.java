@@ -1,6 +1,7 @@
 package com.supsi.frontend.components.gameGrid;
 
 import com.almasb.fxgl.entity.component.Component;
+import com.supsi.backend.observers.Points;
 import com.supsi.backend.observers.SelectedPlant;
 import com.supsi.frontend.components.plant.PlantComponent;
 
@@ -12,6 +13,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.spawn;
 
 public class CellComponent extends Component {
     private static final SelectedPlant<PlantComponent<Rectangle>> selectedPlant = SelectedPlant.getInstance();
+    private final Points points = Points.getInstance();
 
     private void onClick(MouseEvent event) {
         var plant = selectedPlant.getState();
@@ -21,6 +23,7 @@ public class CellComponent extends Component {
             double x = entity.getX() + cellWidth - plant.getWidth() / 2;
             double y = entity.getY() + cellHeight - plant.getHeight() / 2;
             spawn(plant.getFactoryId(), x, y);
+            points.remove(plant.getPlant().getPrice());
             selectedPlant.setState(null);
         }
     }

@@ -45,4 +45,9 @@ public abstract class PlantComponent<T> extends Component {
   public Plant getPlant() {
     return plant;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    return getClass() == o.getClass();
+  }
 }
