@@ -3,12 +3,12 @@ package com.supsi.backend.model.zombies;
 public abstract class Zombie {
 
     private int health;
-    private final double eatingRate;
+    private final int damage;
     private final double speed;
 
-    public Zombie(int health, double eatingRate, double speed) {
+    public Zombie(int health, int damage, double speed) {
         this.health = health;
-        this.eatingRate = eatingRate;
+        this.damage = damage;
         this.speed = speed;
     }
 
@@ -20,16 +20,12 @@ public abstract class Zombie {
         return speed;
     }
 
-    public double getEatingRate() {
-        return eatingRate;
+    public int getDamage() {
+        return damage;
     }
 
     public int takeDamage(int damage) {
         health = health >= damage ? health - damage : 0;
         return health;
-    }
-
-    public void attackPlant() {
-        // TODO: chiamerà il metodo takeDamage() delle piante (magari tramite un Handler?)
     }
 }

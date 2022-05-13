@@ -3,7 +3,7 @@ package com.supsi.backend.model.zombies;
 public class TankZombie extends Zombie {
 
     public TankZombie() {
-        super(200, 1, 0.5);
+        super(200, 5, 0.5);
     }
 
 }

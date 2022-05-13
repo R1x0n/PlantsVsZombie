@@ -4,10 +4,11 @@ import com.supsi.backend.model.others.Configs;
 
 public abstract class Plant {
 
-    int health;
-    int attack;
-    int sunGeneration;
-    private Integer price;
+    private int health;
+    private int attack;
+    private int sunGeneration;
+    private boolean isAlive = true;
+    private int price;
 
     public Plant(int health, int attack, int sunGeneration, Integer price) {
         this.health = health;
@@ -20,8 +21,15 @@ public abstract class Plant {
         return health;
     }
 
-    public int takeDamage(int damage) {
-        return health -= damage;
+    public void addHealth(int health) {
+        this.health += Math.abs(health);
+    }
+
+    public void takeDamage(int damage) {
+        int effectiveDamage = Math.abs(damage);
+        health -= effectiveDamage;
+        if (health - effectiveDamage <= 0)
+            isAlive = false;
     }
 
     public Integer getPrice() {
@@ -31,4 +39,8 @@ public abstract class Plant {
     public void setPrice(Integer price) {
         this.price = price;
     }
+    public boolean isAlive() {
+        return isAlive;
+    }
+
 }

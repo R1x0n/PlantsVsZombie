@@ -5,24 +5,30 @@ import com.almasb.fxgl.app.GameSettings;
 import com.supsi.backend.Utils;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
+import com.supsi.frontend.components.plant.PlantComponent;
+import com.supsi.frontend.components.zombie.ZombieComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
-import com.supsi.frontend.factories.selectorGrid.SelectorGridFactory;
 import com.supsi.frontend.factories.plant.PlantFactory;
+import com.supsi.frontend.factories.plant.PlantTypes;
+import com.supsi.frontend.factories.projectile.ProjectileFactory;
 import com.supsi.frontend.factories.projectile.ProjectileTypes;
+import com.supsi.frontend.factories.selectorGrid.SelectorGridFactory;
 import com.supsi.frontend.factories.sun.SunFactory;
 import com.supsi.frontend.factories.zombie.ZombieFactory;
-import com.supsi.frontend.factories.projectile.ProjectileFactory;
 import com.supsi.frontend.factories.zombie.ZombieTypes;
 import com.supsi.frontend.observers.KillCounterObserver;
+import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
-import static com.almasb.fxgl.dsl.FXGL.*;
-import javafx.scene.image.Image;
-import javafx.util.Duration;
-
+import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
+import static com.almasb.fxgl.dsl.FXGL.onCollisionBegin;
+import static com.almasb.fxgl.dsl.FXGL.run;
+import static com.almasb.fxgl.dsl.FXGL.spawn;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppWidth;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
@@ -98,6 +104,12 @@ public class MainApplication extends GameApplication {
 
     @Override
     protected void initPhysics() {
+        onCollisionBegin(PlantTypes.PLANT, ZombieTypes.ZOMBIE, (plant, zombie) -> {
+            var plantComponent = (PlantComponent) plant.getComponents().stream().filter(PlantComponent.class::isInstance).findFirst().get();
+            var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().get();
+            zombieComponent.eating(plantComponent.getPlant());
+       });
+
         onCollisionBegin(ProjectileTypes.PROJECTILE_NORMAL, ZombieTypes.ZOMBIE, (projectile, zombie) -> projectile.removeFromWorld());
     }
 

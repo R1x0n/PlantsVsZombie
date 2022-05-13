@@ -25,9 +25,9 @@ class AbstractZombieTest {
   }
 
   @Test
-  void getEatingRate() {
+  void getDamage() {
     ConcreteZombie concreteZombie = new ConcreteZombie(10, 10, 10);
-    assertEquals(10, concreteZombie.getEatingRate());
+    assertEquals(10, concreteZombie.getDamage());
   }
 
   @Test

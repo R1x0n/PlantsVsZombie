@@ -8,8 +8,6 @@ import javafx.scene.Node;
 public abstract class PlantComponent<T> extends Component {
   private final Plant plant;
   private T shape = null;
-  private final double width = 25;
-  private final double height = 45;
 
   public PlantComponent(Plant plant) {
     this.plant = plant;
@@ -20,16 +18,22 @@ public abstract class PlantComponent<T> extends Component {
     entity.getViewComponent().addChild((Node) shape);
   }
 
+  @Override
+  public void onUpdate(double tpf) {
+    if (!plant.isAlive())
+      entity.removeFromWorld();
+  }
+
   protected void setShape(T shape) {
     this.shape = shape;
   }
 
-  public double getWidth() {
-    return width;
+  public static double getWidth() {
+    return 25;
   }
 
-  public double getHeight() {
-    return height;
+  public static double getHeight() {
+    return 45;
   }
 
   public abstract String getFactoryId();

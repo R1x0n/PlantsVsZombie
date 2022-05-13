@@ -16,7 +16,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 
 public class ZombieFactory implements EntityFactory {
     public static String[] zombies = {"zombie_tank", "zombie_runner", "zombie_normal"};
-    private final Rectangle collisionBox = new Rectangle(ZombieComponent.getWidth(), ZombieComponent.getHeight(), Color.GREEN);
+    private final Rectangle collisionBox = new Rectangle(ZombieComponent.getWidth(), ZombieComponent.getHeight(), Color.TRANSPARENT);
 
     @Spawns("zombie_tank")
     public Entity newZombieTank(SpawnData data) {
