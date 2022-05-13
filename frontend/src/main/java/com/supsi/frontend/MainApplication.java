@@ -3,11 +3,10 @@ package com.supsi.frontend;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.supsi.backend.Utils;
-import com.supsi.backend.observers.SelectedPlant;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
-import com.supsi.frontend.components.plant.AttackPlantComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
+import com.supsi.frontend.factories.selectorGrid.SelectorGridFactory;
 import com.supsi.frontend.factories.plant.PlantFactory;
 import com.supsi.frontend.factories.projectile.ProjectileTypes;
 import com.supsi.frontend.factories.sun.SunFactory;
@@ -20,14 +19,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
+import static com.almasb.fxgl.dsl.FXGL.*;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-import static com.almasb.fxgl.dsl.FXGL.getGameScene;
-import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
-import static com.almasb.fxgl.dsl.FXGL.onCollisionBegin;
-import static com.almasb.fxgl.dsl.FXGL.run;
-import static com.almasb.fxgl.dsl.FXGL.spawn;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppWidth;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
@@ -65,10 +60,11 @@ public class MainApplication extends GameApplication {
     }
 
     private void initFactories() {
-        getGameWorld().addEntityFactory(new SunFactory());
-        getGameWorld().addEntityFactory(new ZombieFactory());
-        getGameWorld().addEntityFactory(new GridFactory());
-        getGameWorld().addEntityFactory(new PlantFactory());
+      getGameWorld().addEntityFactory(new SunFactory());
+      getGameWorld().addEntityFactory(new ZombieFactory());
+      getGameWorld().addEntityFactory(new GridFactory());
+      getGameWorld().addEntityFactory(new SelectorGridFactory());
+      getGameWorld().addEntityFactory(new PlantFactory());
         getGameWorld().addEntityFactory(new ProjectileFactory());
     }
 
@@ -79,6 +75,8 @@ public class MainApplication extends GameApplication {
         initFactories();
 
         spawn("gameGrid", 265, 200);
+        spawn("selectorGrid", 20 ,20);
+
         run(() -> spawn("sun", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
 
         // y positions of zombies to spawn - 60 for the collision box

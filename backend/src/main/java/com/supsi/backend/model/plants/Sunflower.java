@@ -1,5 +1,6 @@
 package com.supsi.backend.model.plants;
 
+import com.supsi.backend.model.others.Configs;
 import com.supsi.backend.observers.Points;
 
 import java.util.Timer;
@@ -9,8 +10,7 @@ public class Sunflower extends Plant {
   private final Points points = Points.getInstance();
 
   public Sunflower() {
-    super(100, 0, 1);
-    generatePoints();
+    super(100, 0, 1, Configs.getInstance().getSunflowerCost());
   }
 
   private void generatePoints() {

@@ -28,4 +28,16 @@ public class Configs {
     public Integer getPointsPerSun() {
         return Integer.parseInt(properties.getProperty("pointsPerSun"));
     }
+
+    public Integer getSunflowerCost() {
+        return Integer.parseInt(properties.getProperty("sunflowerCost"));
+    }
+
+    public Integer getAttackPlantCost() {
+        return Integer.parseInt(properties.getProperty("attackPlantCost"));
+    }
+
+    public Integer getDefensePlantCost() {
+        return Integer.parseInt(properties.getProperty("defensePlantCost"));
+    }
 }
