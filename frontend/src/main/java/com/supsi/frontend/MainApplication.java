@@ -3,22 +3,29 @@ package com.supsi.frontend;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.supsi.backend.Utils;
+import com.supsi.backend.observers.SelectedPlant;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
+import com.supsi.frontend.components.plant.AttackPlantComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
 import com.supsi.frontend.factories.plant.PlantFactory;
+import com.supsi.frontend.factories.projectile.ProjectileTypes;
 import com.supsi.frontend.factories.sun.SunFactory;
 import com.supsi.frontend.factories.zombie.ZombieFactory;
+import com.supsi.frontend.factories.projectile.ProjectileFactory;
+import com.supsi.frontend.factories.zombie.ZombieTypes;
 import com.supsi.frontend.observers.KillCounterObserver;
-import javafx.scene.image.Image;
-import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
+import javafx.scene.image.Image;
+import javafx.util.Duration;
+
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
+import static com.almasb.fxgl.dsl.FXGL.onCollisionBegin;
 import static com.almasb.fxgl.dsl.FXGL.run;
 import static com.almasb.fxgl.dsl.FXGL.spawn;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppWidth;
@@ -62,6 +69,7 @@ public class MainApplication extends GameApplication {
         getGameWorld().addEntityFactory(new ZombieFactory());
         getGameWorld().addEntityFactory(new GridFactory());
         getGameWorld().addEntityFactory(new PlantFactory());
+        getGameWorld().addEntityFactory(new ProjectileFactory());
     }
 
     @Override
@@ -71,26 +79,28 @@ public class MainApplication extends GameApplication {
         initFactories();
 
         spawn("gameGrid", 265, 200);
-
         run(() -> spawn("sun", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
 
-        // y positions of zombies to spawn + /2 zombie height
-        int[] zombieSpawnPositions = {280, 380, 480, 580, 680};
+        // y positions of zombies to spawn - 60 for the collision box
+        int[] zombieSpawnPositions = {220, 320, 420, 520, 620};
         Random random = new Random();
 
         run(() -> {
-
             double x = getAppWidth() + 30; // + 30 = shape init outside of screen
             var selectedZombie = ZombieFactory.zombies[random.nextInt(ZombieFactory.zombies.length)];
             var selectedPosition = zombieSpawnPositions[random.nextInt(zombieSpawnPositions.length)];
             spawn(selectedZombie, x, selectedPosition);
         }, Duration.seconds(2));
-
     }
 
     @Override
     protected void onUpdate(double tpf) {
         checkGameStatus(Game.getInstance());
+    }
+
+    @Override
+    protected void initPhysics() {
+        onCollisionBegin(ProjectileTypes.PROJECTILE_NORMAL, ZombieTypes.ZOMBIE, (projectile, zombie) -> projectile.removeFromWorld());
     }
 
     public static void main(String[] args) {

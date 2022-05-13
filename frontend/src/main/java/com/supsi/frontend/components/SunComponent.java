@@ -38,6 +38,6 @@ public class SunComponent extends Component {
     @Override
     public void onUpdate(double tpf) {
         if (entity.getY() >= finalY)
-            entity.getComponent(ProjectileComponent.class).pause();
+            movementComponent.pause();
     }
 }
