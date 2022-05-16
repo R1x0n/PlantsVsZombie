@@ -27,5 +27,5 @@ module com.supsi.frontend {
     opens com.supsi.frontend.factories.projectile to javafx.fxml;
 
     exports com.supsi.frontend.observers;
-    opens com.supsi.frontend.observers to javafx.fxml;
+    opens com.supsi.frontend.observers;
 }
