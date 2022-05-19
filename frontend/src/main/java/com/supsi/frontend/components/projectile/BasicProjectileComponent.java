@@ -1,6 +1,7 @@
 package com.supsi.frontend.components.projectile;
 
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
 import com.almasb.fxgl.entity.component.Component;
 import com.supsi.backend.commands.HitZombieCommand;
@@ -41,5 +42,11 @@ public class BasicProjectileComponent extends Component {
         var view = new Circle(BasicProjectileComponent.getV(), BasicProjectileComponent.getV1(), BasicProjectileComponent.getV2(), Color.RED);
         entity.getViewComponent().addChild(view);
         entity.addComponent(movementComponent);
+    }
+
+    @Override
+    public void onUpdate(double tpf) {
+        if (entity.getX() > FXGL.getGameScene().getWidth())
+            entity.removeFromWorld();
     }
 }
