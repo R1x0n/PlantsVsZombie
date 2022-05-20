@@ -3,14 +3,15 @@ package com.supsi.frontend;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.supsi.backend.Utils;
-import com.supsi.backend.observers.SelectedPlant;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
-import com.supsi.frontend.components.plant.AttackPlantComponent;
+import com.supsi.frontend.components.lawnmower.LawnmowerComponent;
 import com.supsi.frontend.components.plant.PlantComponent;
 import com.supsi.frontend.components.projectile.BasicProjectileComponent;
 import com.supsi.frontend.components.zombie.ZombieComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
+import com.supsi.frontend.factories.lawnmower.LawnmowerFactory;
+import com.supsi.frontend.factories.lawnmower.LawnmowerTypes;
 import com.supsi.frontend.factories.plant.PlantFactory;
 import com.supsi.frontend.factories.plant.PlantTypes;
 import com.supsi.frontend.factories.projectile.ProjectileFactory;
@@ -25,6 +26,7 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
@@ -65,7 +67,7 @@ public class MainApplication extends GameApplication {
             e.printStackTrace();
         }
 
-        getGameScene().setBackgroundRepeat(background);
+        getGameScene().setBackgroundRepeat(Objects.requireNonNull(background));
     }
 
     private void initFactories() {
@@ -75,6 +77,13 @@ public class MainApplication extends GameApplication {
         getGameWorld().addEntityFactory(new SelectorGridFactory());
         getGameWorld().addEntityFactory(new PlantFactory());
         getGameWorld().addEntityFactory(new ProjectileFactory());
+        getGameWorld().addEntityFactory(new LawnmowerFactory());
+    }
+
+    private void initLawnmower() {
+        for (int i = 0; i < 5; i++) {
+            spawn("lawnmower", 206, 236 + i * 100);
+        }
     }
 
     @Override
@@ -82,6 +91,7 @@ public class MainApplication extends GameApplication {
         mainGame.startGame();
         initBackground();
         initFactories();
+        initLawnmower();
 
         spawn("gameGrid", 265, 200);
         spawn("selectorGrid", 20, 20);
@@ -108,16 +118,24 @@ public class MainApplication extends GameApplication {
     @Override
     protected void initPhysics() {
         onCollisionBegin(PlantTypes.PLANT, ZombieTypes.ZOMBIE, (plant, zombie) -> {
-            var plantComponent = (PlantComponent) plant.getComponents().stream().filter(PlantComponent.class::isInstance).findFirst().get();
-            var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().get();
-            zombieComponent.eating(plantComponent.getPlant());
+            var plantComponent = (PlantComponent) plant.getComponents().stream().filter(PlantComponent.class::isInstance).findFirst().orElse(null);
+            var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().orElse(null);
+            Objects.requireNonNull(zombieComponent).eating(Objects.requireNonNull(plantComponent).getPlant());
         });
 
         onCollisionBegin(ProjectileTypes.PROJECTILE_NORMAL, ZombieTypes.ZOMBIE, (projectile, zombie) -> {
-            var projectileComponent = (BasicProjectileComponent) projectile.getComponents().stream().filter(BasicProjectileComponent.class::isInstance).findFirst().get();
-            var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().get();
-            projectileComponent.hitZombie(zombieComponent.getZombie());
+            var projectileComponent = (BasicProjectileComponent) projectile.getComponents().stream().filter(BasicProjectileComponent.class::isInstance).findFirst().orElse(null);
+            var zombieComponent = (ZombieComponent) zombie.getComponents().stream().filter(ZombieComponent.class::isInstance).findFirst().orElse(null);
+            Objects.requireNonNull(projectileComponent).hitZombie(Objects.requireNonNull(zombieComponent).getZombie());
         });
+
+        onCollisionBegin(LawnmowerTypes.LAWNMOWER, ZombieTypes.ZOMBIE, (lawnmower, zombie) -> {
+            var lawnmowerComponent = (LawnmowerComponent) lawnmower.getComponents().stream()
+                    .filter(LawnmowerComponent.class::isInstance).findFirst().orElse(null);
+            zombie.removeFromWorld();
+            Objects.requireNonNull(lawnmowerComponent).cutZombie(Objects.requireNonNull(lawnmowerComponent),zombie);
+        });
+
     }
 
     public static void main(String[] args) {

@@ -64,7 +64,7 @@ public abstract class ZombieComponent extends Component {
         if (!zombie.isAlive())
             entity.removeFromWorld();
 
-        if (entity.getX() <= 264)
+        if (entity.getX() <= 200)
             Game.getInstance().setGameOver();
     }
 }

@@ -1,5 +1,7 @@
 package com.supsi.backend.state;
 
+import com.supsi.backend.observers.KillCounter;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Game {
@@ -13,6 +15,7 @@ public class Game {
 
     public void startGame() {
         state = initGameStatus();
+        KillCounter.getInstance().reset();
     }
 
     protected void setStatus(GameStatus newStatus) {

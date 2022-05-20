@@ -19,4 +19,5 @@ module com.supsi.backend {
     opens com.supsi.backend.model.zombies;
     exports com.supsi.backend.state;
     opens com.supsi.backend.state;
+    exports com.supsi.backend.model.lawnmower;
 }

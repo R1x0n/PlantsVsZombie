@@ -34,4 +34,13 @@ public class KillCounter extends Subject {
         super.notifyObservers();
     }
 
+    public void remove() {
+        this.killed.addAndGet(-1);
+        super.notifyObservers();
+    }
+
+    public void reset() {
+        this.setState(0);
+        super.notifyObservers();
+    }
 }
