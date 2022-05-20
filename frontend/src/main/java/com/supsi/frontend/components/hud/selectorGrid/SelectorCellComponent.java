@@ -1,4 +1,4 @@
-package com.supsi.frontend.components.selectorGrid;
+package com.supsi.frontend.components.hud.selectorGrid;
 
 import com.almasb.fxgl.entity.component.Component;
 import com.supsi.backend.observers.Points;

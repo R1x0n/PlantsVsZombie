@@ -10,13 +10,14 @@ import com.supsi.frontend.components.plant.PlantComponent;
 import com.supsi.frontend.components.projectile.BasicProjectileComponent;
 import com.supsi.frontend.components.zombie.ZombieComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
+import com.supsi.frontend.factories.hud.pauseButton.PauseButtonFactory;
 import com.supsi.frontend.factories.lawnmower.LawnmowerFactory;
 import com.supsi.frontend.factories.lawnmower.LawnmowerTypes;
 import com.supsi.frontend.factories.plant.PlantFactory;
 import com.supsi.frontend.factories.plant.PlantTypes;
 import com.supsi.frontend.factories.projectile.ProjectileFactory;
 import com.supsi.frontend.factories.projectile.ProjectileTypes;
-import com.supsi.frontend.factories.selectorGrid.SelectorGridFactory;
+import com.supsi.frontend.factories.hud.selectorGrid.SelectorGridFactory;
 import com.supsi.frontend.factories.sun.SunFactory;
 import com.supsi.frontend.factories.zombie.ZombieFactory;
 import com.supsi.frontend.factories.zombie.ZombieTypes;
@@ -77,6 +78,7 @@ public class MainApplication extends GameApplication {
         getGameWorld().addEntityFactory(new SelectorGridFactory());
         getGameWorld().addEntityFactory(new PlantFactory());
         getGameWorld().addEntityFactory(new ProjectileFactory());
+        getGameWorld().addEntityFactory(new PauseButtonFactory());
         getGameWorld().addEntityFactory(new LawnmowerFactory());
     }
 
@@ -95,6 +97,7 @@ public class MainApplication extends GameApplication {
 
         spawn("gameGrid", 265, 200);
         spawn("selectorGrid", 20, 20);
+        spawn("pauseButton", getAppWidth() - 80, 10);
 
         run(() -> spawn("sun", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
 

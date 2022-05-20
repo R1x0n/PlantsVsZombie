@@ -1,10 +1,10 @@
-package com.supsi.frontend.factories.selectorGrid;
+package com.supsi.frontend.factories.hud.selectorGrid;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import com.supsi.frontend.components.selectorGrid.*;
+import com.supsi.frontend.components.hud.selectorGrid.*;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 

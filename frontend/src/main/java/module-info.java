@@ -20,14 +20,17 @@ module com.supsi.frontend {
     exports com.supsi.frontend.factories.sun;
     opens com.supsi.frontend.factories.sun to javafx.fxml;
 
-    exports com.supsi.frontend.factories.selectorGrid;
-    opens com.supsi.frontend.factories.selectorGrid to javafx.fxml;
+    exports com.supsi.frontend.factories.hud.selectorGrid;
+    opens com.supsi.frontend.factories.hud.selectorGrid to javafx.fxml;
 
     exports com.supsi.frontend.factories.lawnmower;
     opens com.supsi.frontend.factories.lawnmower to javafx.fxml;
 
     exports com.supsi.frontend.factories.projectile;
     opens com.supsi.frontend.factories.projectile to javafx.fxml;
+
+    exports com.supsi.frontend.factories.hud.pauseButton;
+    opens com.supsi.frontend.factories.hud.pauseButton to javafx.fxml;
 
     exports com.supsi.frontend.observers;
     opens com.supsi.frontend.observers;
