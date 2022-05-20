@@ -44,4 +44,12 @@ public class Configs {
     public int getDefensePlantCost() {
         return Integer.parseInt(properties.getProperty("defensePlantCost"));
     }
+
+    public int getInitialPoints() {
+        return Integer.parseInt(properties.getProperty("initialPoints"));
+    }
+
+    public int getSunGenerationTimeInMilliseconds() {
+        return Integer.parseInt(properties.getProperty("sunGenerationTimeInMilliseconds"));
+    }
 }

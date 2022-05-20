@@ -99,7 +99,7 @@ public class MainApplication extends GameApplication {
         spawn("selectorGrid", 20, 20);
         spawn("pauseButton", getAppWidth() - 80, 10);
 
-        run(() -> spawn("sun", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
+        run(() -> spawn("sunFromSky", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
 
         // y positions of zombies to spawn - 60 for the collision box
         int[] zombieSpawnPositions = {220, 320, 420, 520, 620};

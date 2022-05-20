@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConfigsTest {
 
+    Configs instance = Configs.getInstance();
+
     private String getConfigProperty(String property) {
         String[] line = new String[2];
         try {
@@ -23,14 +25,22 @@ public class ConfigsTest {
 
     @Test
     public void getInstanceTest() {
-        Configs instance = Configs.getInstance();
         Configs instance2 = Configs.getInstance();
         assertEquals(instance2, instance);
     }
 
     @Test
     public void getPointsPerSunTest() {
-        Configs instance = Configs.getInstance();
         assertEquals(Integer.parseInt(getConfigProperty("pointsPerSun")), instance.getPointsPerSun());
+    }
+
+    @Test
+    public void getInitialPointsTest() {
+        assertEquals(Integer.parseInt(getConfigProperty("initialPoints")), instance.getInitialPoints());
+    }
+
+    @Test
+    public void getSunGenerationTimeTest() {
+        assertEquals(Integer.parseInt(getConfigProperty("sunGenerationTimeInMilliseconds")), instance.getSunGenerationTimeInMilliseconds());
     }
 }

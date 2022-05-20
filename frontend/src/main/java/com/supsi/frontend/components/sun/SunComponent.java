@@ -1,4 +1,4 @@
-package com.supsi.frontend.components;
+package com.supsi.frontend.components.sun;
 
 import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
@@ -16,7 +16,7 @@ public class SunComponent extends Component {
 
     private final Command sunClickedCommand;
     private final int finalY = Utils.randomCoordinate(200, 700);
-    private final Component movementComponent = new ProjectileComponent(new Point2D(0, 1), FXGLMath.random(50, 150));
+    protected final Component movementComponent = new ProjectileComponent(new Point2D(0, 1), FXGLMath.random(50, 150));
 
     public SunComponent() {
         sunClickedCommand = new SunClickedCommand(new Sun());
@@ -24,6 +24,7 @@ public class SunComponent extends Component {
 
     private void onClick() {
         sunClickedCommand.execute();
+        entity.removeFromWorld();
     }
 
     @Override

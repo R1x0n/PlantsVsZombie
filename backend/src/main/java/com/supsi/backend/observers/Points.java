@@ -1,5 +1,6 @@
 package com.supsi.backend.observers;
 
+import com.supsi.backend.model.others.Configs;
 import com.supsi.backend.observers.utils.Subject;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,7 +21,7 @@ public class Points extends Subject {
 
   protected Points() {
     super();
-    this.points.set(0);
+    this.points.set(Configs.getInstance().getInitialPoints());
   }
 
   public int getState() {
