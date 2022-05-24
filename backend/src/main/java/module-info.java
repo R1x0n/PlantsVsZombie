@@ -1,5 +1,4 @@
 module com.supsi.backend {
-    exports com.supsi.backend;
     exports com.supsi.backend.observers;
     exports com.supsi.backend.observers.utils;
 
@@ -10,7 +9,6 @@ module com.supsi.backend {
     exports com.supsi.backend.model.plants;
     exports com.supsi.backend.model.zombies;
 
-    opens com.supsi.backend;
     opens com.supsi.backend.commands;
     opens com.supsi.backend.observers;
     opens com.supsi.backend.observers.utils;

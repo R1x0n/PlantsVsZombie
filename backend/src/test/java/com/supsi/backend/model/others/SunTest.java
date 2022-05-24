@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class SunTest {
-
     @Test
     void addPoints() {
         Sun sun = new Sun();
@@ -20,5 +19,11 @@ class SunTest {
 
         sun.addPoints(100);
         assertEquals(p.getState(), 150);
+    }
+
+    @Test
+    void getDespawnTimeInMilliseconds() {
+        Sun sun = new Sun();
+        assertEquals(sun.getDespawnTimeInMilliseconds(), Configs.getInstance().getSunDespawnTimeInMilliseconds());
     }
 }

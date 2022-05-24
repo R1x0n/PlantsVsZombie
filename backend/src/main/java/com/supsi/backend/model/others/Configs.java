@@ -25,31 +25,46 @@ public class Configs {
         return config;
     }
 
+    public int getProperty(String propertyName) {
+        return Integer.parseInt(properties.getProperty(propertyName));
+    }
+
     public int getProjectileDamage() {
-        return Integer.parseInt(properties.getProperty("projectileDamage"));
+        return getProperty("projectileDamage");
     }
 
     public int getPointsPerSun() {
-        return Integer.parseInt(properties.getProperty("pointsPerSun"));
+        return getProperty("pointsPerSun");
     }
 
     public int getSunflowerCost() {
-        return Integer.parseInt(properties.getProperty("sunflowerCost"));
+        return getProperty("sunflowerCost");
     }
 
     public int getAttackPlantCost() {
-        return Integer.parseInt(properties.getProperty("attackPlantCost"));
+        return getProperty("attackPlantCost");
     }
 
     public int getDefensePlantCost() {
-        return Integer.parseInt(properties.getProperty("defensePlantCost"));
+        return getProperty("defensePlantCost");
     }
 
     public int getInitialPoints() {
-        return Integer.parseInt(properties.getProperty("initialPoints"));
+        return getProperty("initialPoints");
     }
 
     public int getSunGenerationTimeInMilliseconds() {
-        return Integer.parseInt(properties.getProperty("sunGenerationTimeInMilliseconds"));
+        return getProperty("sunGenerationTimeInMilliseconds");
+    }
+
+    public int getSunDespawnTimeInMilliseconds() {
+        return getProperty("sunDespawnTimeInMilliseconds");
+    }
+
+    public void setSunDespawnTimeInMilliseconds(int time) {
+        if (time <= 0)
+            throw new IllegalArgumentException("Sun Despawn Time must be greater than 0");
+
+        properties.setProperty("sunDespawnTimeInMilliseconds", String.valueOf(time));
     }
 }

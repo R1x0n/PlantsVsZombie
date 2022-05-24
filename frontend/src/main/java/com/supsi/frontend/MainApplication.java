@@ -2,7 +2,7 @@ package com.supsi.frontend;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.supsi.backend.Utils;
+import com.almasb.fxgl.dsl.FXGL;
 import com.supsi.backend.state.Game;
 import com.supsi.backend.state.GameStatusTypes;
 import com.supsi.frontend.components.lawnmower.LawnmowerComponent;
@@ -11,24 +11,25 @@ import com.supsi.frontend.components.projectile.BasicProjectileComponent;
 import com.supsi.frontend.components.zombie.ZombieComponent;
 import com.supsi.frontend.factories.gameGrid.GridFactory;
 import com.supsi.frontend.factories.hud.pauseButton.PauseButtonFactory;
+import com.supsi.frontend.factories.hud.selectorGrid.SelectorGridFactory;
 import com.supsi.frontend.factories.lawnmower.LawnmowerFactory;
 import com.supsi.frontend.factories.lawnmower.LawnmowerTypes;
 import com.supsi.frontend.factories.plant.PlantFactory;
 import com.supsi.frontend.factories.plant.PlantTypes;
 import com.supsi.frontend.factories.projectile.ProjectileFactory;
 import com.supsi.frontend.factories.projectile.ProjectileTypes;
-import com.supsi.frontend.factories.hud.selectorGrid.SelectorGridFactory;
 import com.supsi.frontend.factories.sun.SunFactory;
 import com.supsi.frontend.factories.zombie.ZombieFactory;
 import com.supsi.frontend.factories.zombie.ZombieTypes;
 import com.supsi.frontend.observers.KillCounterObserver;
-import javafx.scene.image.Image;
-import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Random;
+
+import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
@@ -99,7 +100,7 @@ public class MainApplication extends GameApplication {
         spawn("selectorGrid", 20, 20);
         spawn("pauseButton", getAppWidth() - 80, 10);
 
-        run(() -> spawn("sunFromSky", Utils.randomCoordinate(265, 985), -30), Duration.seconds(15));
+        run(() -> spawn("sunFromSky", FXGL.random(265, 985), -30), Duration.seconds(15));
 
         // y positions of zombies to spawn - 60 for the collision box
         int[] zombieSpawnPositions = {220, 320, 420, 520, 620};

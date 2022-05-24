@@ -6,4 +6,10 @@ public class FixedSunComponent extends SunComponent {
         super();
         movementComponent.pause();
     }
+
+    @Override
+    public void onAdded() {
+        super.onAdded();
+        initDespawn();
+    }
 }
