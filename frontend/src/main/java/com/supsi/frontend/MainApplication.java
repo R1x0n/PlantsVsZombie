@@ -21,30 +21,33 @@ import com.supsi.frontend.factories.projectile.ProjectileTypes;
 import com.supsi.frontend.factories.sun.SunFactory;
 import com.supsi.frontend.factories.zombie.ZombieFactory;
 import com.supsi.frontend.factories.zombie.ZombieTypes;
+import com.supsi.frontend.observers.EnemySpawner;
 import com.supsi.frontend.observers.KillCounterObserver;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 import java.util.Objects;
-import java.util.Random;
+import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static com.almasb.fxgl.dsl.FXGL.getGameTimer;
 import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
 import static com.almasb.fxgl.dsl.FXGL.onCollisionBegin;
 import static com.almasb.fxgl.dsl.FXGL.run;
 import static com.almasb.fxgl.dsl.FXGL.spawn;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppWidth;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class MainApplication extends GameApplication {
 
     private static final String windowTitle = "PvZ";
     private final KillCounterObserver killCounterController = new KillCounterObserver();
     private final Game mainGame = Game.getInstance();
+    private final EnemySpawner enemySpawner = new EnemySpawner();
 
     private void checkGameStatus(Game game) {
         if (game.getStatus() == GameStatusTypes.GAMEOVER) {
@@ -92,6 +95,7 @@ public class MainApplication extends GameApplication {
     @Override
     protected void initGame() {
         mainGame.startGame();
+
         initBackground();
         initFactories();
         initLawnmower();
@@ -102,16 +106,7 @@ public class MainApplication extends GameApplication {
 
         run(() -> spawn("sunFromSky", FXGL.random(265, 985), -30), Duration.seconds(15));
 
-        // y positions of zombies to spawn - 60 for the collision box
-        int[] zombieSpawnPositions = {220, 320, 420, 520, 620};
-        Random random = new Random();
-
-        run(() -> {
-            double x = getAppWidth() + 30; // + 30 = shape init outside of screen
-            var selectedZombie = ZombieFactory.zombies[random.nextInt(ZombieFactory.zombies.length)];
-            var selectedPosition = zombieSpawnPositions[random.nextInt(zombieSpawnPositions.length)];
-            spawn(selectedZombie, x, selectedPosition);
-        }, Duration.seconds(2));
+        getGameTimer().runOnceAfter(() -> enemySpawner.start(Duration.seconds(5)) , Duration.seconds(15));
     }
 
     @Override
