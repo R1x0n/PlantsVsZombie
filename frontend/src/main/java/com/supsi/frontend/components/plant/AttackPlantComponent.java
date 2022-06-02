@@ -1,24 +1,44 @@
 package com.supsi.frontend.components.plant;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.time.TimerAction;
 import com.supsi.backend.model.plants.AttackPlant;
 import com.supsi.frontend.factories.zombie.ZombieTypes;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.Node;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.spawn;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameTimer;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
-public class AttackPlantComponent extends PlantComponent<Rectangle> {
+public class AttackPlantComponent extends PlantComponent {
     private TimerAction timerAction;
+    private final String textureName = "Attack_Plant.png";
 
     public AttackPlantComponent() {
         super(new AttackPlant());
-        var shape = new Rectangle(super.getWidth(), super.getHeight(), Color.RED);
-        super.setShape(shape);
+    }
+
+    @Override
+    protected Node getTextureNode() {
+        Node node = FXGL.getAssetLoader().loadTexture(textureName);
+        node.setScaleX(0.4);
+        node.setScaleY(0.4);
+        node.setLayoutY(-80);
+        node.setLayoutX(-50);
+        return node;
+    }
+
+    @Override
+    public Node getTextureSelector() {
+        Node nodeImage = FXGL.getAssetLoader().loadTexture(textureName);
+        nodeImage.setLayoutY(-65);
+        nodeImage.setLayoutX(-20);
+        nodeImage.setViewOrder(-1);
+        nodeImage.setScaleX(0.3);
+        nodeImage.setScaleY(0.3);
+        return nodeImage;
     }
 
     @Override
@@ -35,6 +55,7 @@ public class AttackPlantComponent extends PlantComponent<Rectangle> {
             if (isThereAnyZombie)
                 spawn("projectile", entity.getX(), entity.getY() + 20);
         }, Duration.millis(1250));
+        entity.getViewComponent().addChild(getTextureNode());
     }
 
     @Override

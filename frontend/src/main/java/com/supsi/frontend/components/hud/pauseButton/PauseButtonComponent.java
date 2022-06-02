@@ -2,14 +2,10 @@ package com.supsi.frontend.components.hud.pauseButton;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
-import javafx.scene.image.Image;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class PauseButtonComponent extends Component {
 
@@ -17,17 +13,21 @@ public class PauseButtonComponent extends Component {
         FXGL.getGameController().gotoGameMenu();
     }
 
+    private Node getTextureNode() {
+        Node node = FXGL.getAssetLoader().loadTexture("PauseWood.png");
+        node.setScaleX(0.3);
+        node.setScaleY(0.3);
+        node.setLayoutX(-195);
+        node.setLayoutY(-155);
+        node.setViewOrder(2);
+        return node;
+    }
+
     @Override
     public void onAdded() {
-        var shape = new Rectangle(70, 70, Color.GRAY);
-        Image image;
-        try {
-            image = new Image(new FileInputStream("frontend/src/main/resources/pausewood.png"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        shape.setFill(new ImagePattern(image));
+        var shape = new Rectangle(70, 70, Color.TRANSPARENT);
         entity.getViewComponent().addChild(shape);
+        entity.getViewComponent().addChild(getTextureNode());
         shape.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> onClick());
     }
 

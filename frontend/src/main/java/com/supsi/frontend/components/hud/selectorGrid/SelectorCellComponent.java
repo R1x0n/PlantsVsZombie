@@ -1,5 +1,6 @@
 package com.supsi.frontend.components.hud.selectorGrid;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.supsi.backend.observers.Points;
 import com.supsi.backend.observers.SelectedPlant;
@@ -8,9 +9,8 @@ import com.supsi.frontend.components.plant.PlantComponent;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -23,11 +23,15 @@ import java.lang.reflect.InvocationTargetException;
 
 public class SelectorCellComponent extends Component implements Observer {
 
-    private Constructor<PlantComponent<Rectangle>> plantConstructor;
+    private Constructor<PlantComponent> plantConstructor;
     private Integer price;
     private final Points points = Points.getInstance();
-    private final SelectedPlant<PlantComponent<Rectangle>> selectedPlant = SelectedPlant.getInstance();
+    private final SelectedPlant<PlantComponent> selectedPlant = SelectedPlant.getInstance();
     private Rectangle cellOverlay;
+
+    private Node getTextureNode() {
+        return FXGL.getAssetLoader().loadTexture("CellWood.jpg");
+    }
 
     private void errorAnimation() {
         FadeTransition ft = new FadeTransition(Duration.millis(100), cellOverlay);
@@ -42,7 +46,7 @@ public class SelectorCellComponent extends Component implements Observer {
     // metodo che si occupa di evidenziare la cella selezionata
     private void toggleMarking() {
         try {
-            PlantComponent<Rectangle> currentPlant = selectedPlant.getState();
+            PlantComponent currentPlant = selectedPlant.getState();
             if (currentPlant == null || !currentPlant.equals(plantConstructor.newInstance())) {
                 cellOverlay.setOpacity(0);
             } else {
@@ -61,8 +65,8 @@ public class SelectorCellComponent extends Component implements Observer {
             } else {
 
                 // controllo che la pianta selezionata non sia già in SelectedPlant. In tal caso resetta lo stato
-                PlantComponent<Rectangle> newPlant = plantConstructor.newInstance();
-                PlantComponent<Rectangle> currentPlant = selectedPlant.getState();
+                PlantComponent newPlant = plantConstructor.newInstance();
+                PlantComponent currentPlant = selectedPlant.getState();
                 if (currentPlant != null && currentPlant.equals(newPlant)) {
                     newPlant = null;
                 }
@@ -77,27 +81,29 @@ public class SelectorCellComponent extends Component implements Observer {
     @Override
     public void onAdded() {
         BorderPane cell = new BorderPane();
+        cell.setViewOrder(-1);
         cell.setMinSize(83, 81);
-        PlantComponent<Rectangle> plant = (PlantComponent<Rectangle>) SelectedPlant.getInstance().getState();
-        cell.setCenter(plant.getShape());
+        PlantComponent plant = (PlantComponent) SelectedPlant.getInstance().getState();
+        entity.getViewComponent().addChild(plant.getTextureSelector());
         price = plant.getPlant().getPrice();
-        Text text = new Text(String.valueOf(plant.getPlant().getPrice()));
+        Text text = new Text(String.valueOf(price));
         try {
-            plantConstructor = (Constructor<PlantComponent<Rectangle>>) plant.getClass().getConstructor();
+            plantConstructor = (Constructor<PlantComponent>) plant.getClass().getConstructor();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
         BorderPane.setAlignment(text, Pos.CENTER);
-        cell.setPadding(new Insets(2,0,3,0));
+        cell.setPadding(new Insets(2, 0, 3, 0));
         text.setFont(new Font("Comic Sans MS Bold", 14));
         cell.setBottom(text);
-        cell.setBackground(new Background(new BackgroundImage(SelectorGridComponent.getCellBackground(), null, null, null, null)));
         entity.getViewComponent().addChild(cell);
         cellOverlay = new Rectangle(80, 80);
+        cellOverlay.setViewOrder(-2);
         cellOverlay.setOpacity(0);
         entity.getViewComponent().addChild(cellOverlay);
         selectedPlant.attach(this);
         entity.getViewComponent().addEventHandler(MouseEvent.MOUSE_CLICKED, this::onClick);
+        entity.getViewComponent().addChild(getTextureNode());
     }
 
     @Override

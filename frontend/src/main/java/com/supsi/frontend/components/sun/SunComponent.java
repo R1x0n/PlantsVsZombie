@@ -1,6 +1,7 @@
 package com.supsi.frontend.components.sun;
 
 import com.almasb.fxgl.core.math.FXGLMath;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
@@ -11,6 +12,7 @@ import com.supsi.backend.model.others.Sun;
 import java.util.Optional;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -35,6 +37,16 @@ public abstract class SunComponent extends Component {
         getGameTimer().runOnceAfter(() -> Optional.ofNullable(entity).ifPresent(Entity::removeFromWorld), despawnTime);
     }
 
+    private Node getTextureNode() {
+        Node node = FXGL.getAssetLoader().loadTexture("Sun.png");
+        node.setScaleX(0.60);
+        node.setScaleY(0.60);
+        node.setLayoutY(-45);
+        node.setLayoutX(-15);
+        node.setViewOrder(1);
+        return node;
+    }
+
     private void onClick() {
         sunClickedCommand.execute();
         entity.removeFromWorld();
@@ -42,9 +54,10 @@ public abstract class SunComponent extends Component {
 
     @Override
     public void onAdded() {
-        var view = new Circle(30, 3, 15, Color.GOLD);
+        var view = new Circle(35, 3, 15, Color.TRANSPARENT);
         entity.getViewComponent().addChild(view);
         entity.addComponent(movementComponent);
+        entity.getViewComponent().addChild(getTextureNode());
 
         view.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> onClick());
     }

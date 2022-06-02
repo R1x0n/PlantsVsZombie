@@ -32,7 +32,6 @@ public class SelectorGridFactory implements EntityFactory {
     public Entity newPointCell(SpawnData data) {
         return entityBuilder(data)
                 .type(SelectorGridTypes.POINTCELL)
-                .zIndex(2)
                 .with(new PointsCellComponent())
                 .build();
     }

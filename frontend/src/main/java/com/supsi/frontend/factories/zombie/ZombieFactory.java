@@ -4,10 +4,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import com.supsi.frontend.components.zombie.NormalZombieComponent;
-import com.supsi.frontend.components.zombie.RunnerZombieComponent;
-import com.supsi.frontend.components.zombie.TankZombieComponent;
-import com.supsi.frontend.components.zombie.ZombieComponent;
+import com.supsi.frontend.components.zombie.*;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

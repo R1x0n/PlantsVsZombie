@@ -5,49 +5,39 @@ import com.supsi.backend.model.plants.Plant;
 
 import javafx.scene.Node;
 
-public abstract class PlantComponent<T> extends Component {
-  private final Plant plant;
-  private T shape = null;
+public abstract class PlantComponent extends Component {
+    private final Plant plant;
 
-  public PlantComponent(Plant plant) {
-    this.plant = plant;
-  }
+    public PlantComponent(Plant plant) {
+        this.plant = plant;
+    }
 
-  @Override
-  public void onAdded() {
-    entity.getViewComponent().addChild((Node) shape);
-  }
+    abstract protected Node getTextureNode();
 
-  @Override
-  public void onUpdate(double tpf) {
-    if (!plant.isAlive())
-      entity.removeFromWorld();
-  }
+    abstract public Node getTextureSelector();
 
-  protected void setShape(T shape) {
-    this.shape = shape;
-  }
+    @Override
+    public void onUpdate(double tpf) {
+        if (!plant.isAlive())
+            entity.removeFromWorld();
+    }
 
-  public static double getWidth() {
-    return 25;
-  }
+    public static double getWidth() {
+        return 25;
+    }
 
-  public static double getHeight() {
-    return 45;
-  }
+    public static double getHeight() {
+        return 45;
+    }
 
-  public abstract String getFactoryId();
+    public abstract String getFactoryId();
 
-  public T getShape() {
-    return shape;
-  }
+    public Plant getPlant() {
+        return plant;
+    }
 
-  public Plant getPlant() {
-    return plant;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    return getClass() == o.getClass();
-  }
+    @Override
+    public boolean equals(Object o) {
+        return getClass() == o.getClass();
+    }
 }

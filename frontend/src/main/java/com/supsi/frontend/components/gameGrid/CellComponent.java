@@ -17,7 +17,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.spawn;
 
 public class CellComponent extends Component implements Observer {
-    private static final SelectedPlant<PlantComponent<Rectangle>> selectedPlant = SelectedPlant.getInstance();
+    private static final SelectedPlant<PlantComponent> selectedPlant = SelectedPlant.getInstance();
     private final Points points = Points.getInstance();
     private Rectangle shape;
     private Point2D cellCenter;

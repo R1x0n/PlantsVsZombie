@@ -23,6 +23,7 @@ import com.supsi.frontend.factories.zombie.ZombieFactory;
 import com.supsi.frontend.factories.zombie.ZombieTypes;
 import com.supsi.frontend.observers.EnemySpawner;
 import com.supsi.frontend.observers.KillCounterObserver;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -63,18 +64,6 @@ public class MainApplication extends GameApplication {
         settings.setHeight(770);
     }
 
-    private void initBackground() {
-        Image background = null;
-
-        try {
-            background = new Image(new FileInputStream("frontend/src/main/resources/background.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        getGameScene().setBackgroundRepeat(Objects.requireNonNull(background));
-    }
-
     private void initFactories() {
         getGameWorld().addEntityFactory(new SunFactory());
         getGameWorld().addEntityFactory(new ZombieFactory());
@@ -88,7 +77,7 @@ public class MainApplication extends GameApplication {
 
     private void initLawnmower() {
         for (int i = 0; i < 5; i++) {
-            spawn("lawnmower", 206, 236 + i * 100);
+            spawn("lawnmower", 156, 216 + i * 100);
         }
     }
 
@@ -96,9 +85,9 @@ public class MainApplication extends GameApplication {
     protected void initGame() {
         mainGame.startGame();
 
-        initBackground();
         initFactories();
         initLawnmower();
+        getGameScene().setBackgroundRepeat("Background.png");
 
         spawn("gameGrid", 265, 200);
         spawn("selectorGrid", 20, 20);
@@ -132,7 +121,7 @@ public class MainApplication extends GameApplication {
             var lawnmowerComponent = (LawnmowerComponent) lawnmower.getComponents().stream()
                     .filter(LawnmowerComponent.class::isInstance).findFirst().orElse(null);
             zombie.removeFromWorld();
-            Objects.requireNonNull(lawnmowerComponent).cutZombie(Objects.requireNonNull(lawnmowerComponent),zombie);
+            Objects.requireNonNull(lawnmowerComponent).cutZombie(Objects.requireNonNull(lawnmowerComponent), zombie);
         });
 
     }

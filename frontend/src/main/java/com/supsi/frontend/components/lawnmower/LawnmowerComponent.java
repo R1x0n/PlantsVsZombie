@@ -8,14 +8,14 @@ import com.supsi.backend.commands.CutZombieCommand;
 import com.supsi.backend.commands.utils.Command;
 import com.supsi.backend.model.lawnmower.Lawnmower;
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.Node;
 
 public class LawnmowerComponent extends Component {
 
     private final Command zombieCutCommand;
+
     public static int getWidth() {
-        return 50;
+        return 90;
     }
 
     public static int getHeight() {
@@ -25,19 +25,22 @@ public class LawnmowerComponent extends Component {
     private final Component movementComponent = new ProjectileComponent(new Point2D(1, 0), 300);
 
     public LawnmowerComponent() {
-        zombieCutCommand = new CutZombieCommand(new Lawnmower()) ;
+        zombieCutCommand = new CutZombieCommand(new Lawnmower());
     }
 
     public void resumeMovement() {
         movementComponent.resume();
     }
 
+    private Node getTextureNode() {
+        return FXGL.getAssetLoader().loadTexture("Lawn_Mower.png");
+    }
+
     @Override
     public void onAdded() {
-        var view = new Rectangle(getWidth(), getHeight(), Color.BLACK);
         movementComponent.pause();
-        entity.getViewComponent().addChild(view);
         entity.addComponent(movementComponent);
+        entity.getViewComponent().addChild(getTextureNode());
     }
 
     @Override
@@ -48,7 +51,6 @@ public class LawnmowerComponent extends Component {
     }
 
     public void cutZombie(LawnmowerComponent lawnmowerComponent, Entity zombie) {
-        zombie.removeFromWorld();
         lawnmowerComponent.resumeMovement();
         zombieCutCommand.execute();
     }

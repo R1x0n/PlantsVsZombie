@@ -9,16 +9,15 @@ import com.supsi.backend.model.zombies.Zombie;
 
 import com.supsi.backend.state.Game;
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.Node;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameTimer;
 
-
 public abstract class ZombieComponent extends Component {
     private final Zombie zombie;
     private final Component movementComponent;
+    private String texture;
     private TimerAction timerAction;
 
     public static int getWidth() {
@@ -28,6 +27,8 @@ public abstract class ZombieComponent extends Component {
     public static int getHeight() {
         return 60;
     }
+
+    abstract protected Node getTextureNode();
 
     public ZombieComponent(Zombie zombie) {
         this.zombie = zombie;
@@ -54,9 +55,13 @@ public abstract class ZombieComponent extends Component {
 
     @Override
     public void onAdded() {
-        var shape = new Rectangle(getWidth(), getHeight(), Color.GREEN);
-        entity.getViewComponent().addChild(shape);
+        int row = (int) entity.getY();
         entity.addComponent(movementComponent);
+        entity.getViewComponent().addChild(getTextureNode());
+        super.onAdded();
+        int totalDigits = (int) Math.log10(row);
+        int firstDigit = row / (int) Math.pow(10, totalDigits);
+        entity.setZIndex(firstDigit);
     }
 
     @Override

@@ -20,6 +20,7 @@ public class LawnmowerFactory implements EntityFactory {
                 .with(new LawnmowerComponent())
                 .viewWithBBox(collisionBox)
                 .collidable()
+                .zIndex(0)
                 .build();
     }
 }
