@@ -5,7 +5,7 @@ import com.supsi.backend.model.others.Configs;
 public class DefensePlant extends Plant {
 
     public DefensePlant() {
-        super(200, 0, 0, Configs.getInstance().getDefensePlantCost());
+        super(200, 0, 0, Configs.getInstance().getDefensePlantCost(), 30000);
     }
 
 }

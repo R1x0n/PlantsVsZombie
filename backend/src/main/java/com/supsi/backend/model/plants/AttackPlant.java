@@ -5,7 +5,7 @@ import com.supsi.backend.model.others.Configs;
 public class AttackPlant extends Plant {
 
     public AttackPlant() {
-        super(100, 1, 0, Configs.getInstance().getAttackPlantCost());
+        super(100, 1, 0, Configs.getInstance().getAttackPlantCost(), 20000);
     }
 
     public void shoot() { }

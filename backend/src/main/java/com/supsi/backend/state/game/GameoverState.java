@@ -1,4 +1,4 @@
-package com.supsi.backend.state;
+package com.supsi.backend.state.game;
 
 public class GameoverState implements GameStatus {
     @Override

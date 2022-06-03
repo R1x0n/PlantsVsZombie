@@ -7,7 +7,7 @@ import com.supsi.backend.commands.ZombieEatCommand;
 import com.supsi.backend.model.plants.Plant;
 import com.supsi.backend.model.zombies.Zombie;
 
-import com.supsi.backend.state.Game;
+import com.supsi.backend.state.game.Game;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.util.Duration;

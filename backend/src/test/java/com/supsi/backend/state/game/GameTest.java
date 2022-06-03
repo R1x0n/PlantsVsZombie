@@ -1,4 +1,4 @@
-package com.supsi.backend.state;
+package com.supsi.backend.state.game;
 
 import org.junit.jupiter.api.Test;
 

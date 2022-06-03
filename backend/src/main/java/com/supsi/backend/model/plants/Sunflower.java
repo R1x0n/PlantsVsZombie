@@ -10,7 +10,7 @@ public class Sunflower extends Plant {
   private final Points points = Points.getInstance();
 
   public Sunflower() {
-    super(100, 0, 1, Configs.getInstance().getSunflowerCost());
+    super(100, 0, 1, Configs.getInstance().getSunflowerCost(), 10000);
   }
 
   private void generatePoints() {

@@ -5,14 +5,18 @@ import com.almasb.fxgl.entity.component.Component;
 import com.supsi.backend.observers.Points;
 import com.supsi.backend.observers.SelectedPlant;
 import com.supsi.backend.observers.utils.Observer;
+import com.supsi.backend.state.plant.PlantStateType;
 import com.supsi.frontend.components.plant.PlantComponent;
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -28,6 +32,7 @@ public class SelectorCellComponent extends Component implements Observer {
     private final Points points = Points.getInstance();
     private final SelectedPlant<PlantComponent> selectedPlant = SelectedPlant.getInstance();
     private Rectangle cellOverlay;
+    private PlantComponent cellPlant;
 
     private Node getTextureNode() {
         return FXGL.getAssetLoader().loadTexture("CellWood.jpg");
@@ -59,23 +64,47 @@ public class SelectorCellComponent extends Component implements Observer {
     }
 
     private void onClick(MouseEvent event) {
-        try {
-            if (points.getState() < price) {
-                errorAnimation();
-            } else {
+        PlantStateType state = cellPlant.getPlant().getState();
+        if(state.equals(PlantStateType.READY)) {
+            try {
+                if (points.getState() < price) {
+                    errorAnimation();
+                } else {
 
-                // controllo che la pianta selezionata non sia già in SelectedPlant. In tal caso resetta lo stato
-                PlantComponent newPlant = plantConstructor.newInstance();
-                PlantComponent currentPlant = selectedPlant.getState();
-                if (currentPlant != null && currentPlant.equals(newPlant)) {
-                    newPlant = null;
+                    // controllo che la pianta selezionata non sia già in SelectedPlant. In tal caso resetta lo stato
+                    PlantComponent newPlant = plantConstructor.newInstance();
+                    PlantComponent currentPlant = selectedPlant.getState();
+                    if (currentPlant != null && currentPlant.equals(newPlant)) {
+                        newPlant = null;
+                    }
+
+                    selectedPlant.setState(newPlant);
                 }
-
-                selectedPlant.setState(newPlant);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
             }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
         }
+    }
+
+    public void rechargeCell(int duration) {
+        cellPlant.getPlant().setCharging();
+        cellOverlay.setFill(Color.BLACK);
+        cellOverlay.setOpacity(0.3);
+        cellOverlay.setY(0);
+        ScaleTransition st = new ScaleTransition(Duration.millis(duration), cellOverlay);
+        PathTransition pt = new PathTransition();
+        pt.setDuration(Duration.millis(duration));
+        pt.setNode(cellOverlay);
+        pt.setPath(new Line(40, 40, 40, 0));
+        st.setToY(0);
+        st.setOnFinished((e) -> {
+            cellPlant.getPlant().setReady();
+            cellOverlay.setOpacity(0);
+            cellOverlay.setScaleY(1);
+            cellOverlay.setY(40);
+        });
+        pt.play();
+        st.play();
     }
 
     @Override
@@ -83,12 +112,12 @@ public class SelectorCellComponent extends Component implements Observer {
         BorderPane cell = new BorderPane();
         cell.setViewOrder(-1);
         cell.setMinSize(83, 81);
-        PlantComponent plant = (PlantComponent) SelectedPlant.getInstance().getState();
-        entity.getViewComponent().addChild(plant.getTextureSelector());
-        price = plant.getPlant().getPrice();
+        cellPlant = (PlantComponent) SelectedPlant.getInstance().getState();
+        entity.getViewComponent().addChild(cellPlant.getTextureSelector());
+        price = cellPlant.getPlant().getPrice();
         Text text = new Text(String.valueOf(price));
         try {
-            plantConstructor = (Constructor<PlantComponent>) plant.getClass().getConstructor();
+            plantConstructor = (Constructor<PlantComponent>) cellPlant.getClass().getConstructor();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -108,6 +137,13 @@ public class SelectorCellComponent extends Component implements Observer {
 
     @Override
     public void update() {
-        toggleMarking();
+        PlantStateType state = cellPlant.getPlant().getState();
+        if(state.equals(PlantStateType.READY)) {
+            toggleMarking();
+        }
+    }
+
+    public PlantComponent getCellPlant() {
+        return cellPlant;
     }
 }

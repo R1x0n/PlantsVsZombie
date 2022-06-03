@@ -3,9 +3,11 @@ package com.supsi.frontend.components.gameGrid;
 import com.almasb.fxgl.entity.component.Component;
 import com.supsi.backend.observers.Points;
 import com.supsi.backend.observers.SelectedPlant;
+import com.supsi.frontend.components.hud.selectorGrid.SelectorCellComponent;
 import com.supsi.backend.observers.utils.Observer;
 import com.supsi.frontend.components.plant.PlantComponent;
 
+import com.supsi.frontend.factories.hud.selectorGrid.SelectorGridTypes;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
@@ -29,6 +31,13 @@ public class CellComponent extends Component implements Observer {
             spawn(plant.getFactoryId(), cellCenter.getX(), cellCenter.getY());
             points.remove(plant.getPlant().getPrice());
             selectedPlant.setState(null);
+            SelectorCellComponent cell = getGameWorld().getEntitiesByType(SelectorGridTypes.SELECTORCELL)
+                    .stream()
+                    .map((entity) -> entity.getComponent(SelectorCellComponent.class))
+                    .filter((component) -> component.getCellPlant().equals(plant)).findFirst().orElse(null);
+            if(cell != null) {
+                cell.rechargeCell(plant.getPlant().getRechargeTime());
+            }
         }
     }
 
