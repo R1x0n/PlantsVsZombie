@@ -25,15 +25,7 @@ import com.supsi.frontend.observers.EnemySpawner;
 import com.supsi.frontend.observers.KillCounterObserver;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import java.util.Objects;
-import javafx.scene.image.Image;
-import javafx.util.Duration;
-
-import javafx.scene.image.Image;
-import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static com.almasb.fxgl.dsl.FXGL.getGameTimer;
@@ -41,7 +33,9 @@ import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
 import static com.almasb.fxgl.dsl.FXGL.onCollisionBegin;
 import static com.almasb.fxgl.dsl.FXGL.run;
 import static com.almasb.fxgl.dsl.FXGL.spawn;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getAppWidth;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
 public class MainApplication extends GameApplication {
 
@@ -87,7 +81,8 @@ public class MainApplication extends GameApplication {
 
         initFactories();
         initLawnmower();
-        getGameScene().setBackgroundRepeat("Background.png");
+        var backgroundImage = FXGL.getAssetLoader().loadImage("Background.png");
+        getGameScene().setBackgroundRepeat(backgroundImage);
 
         spawn("gameGrid", 265, 200);
         spawn("selectorGrid", 20, 20);
