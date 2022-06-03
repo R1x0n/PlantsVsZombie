@@ -12,6 +12,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
+import java.util.Optional;
+
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameTimer;
 
 public abstract class ZombieComponent extends Component {
@@ -51,6 +53,11 @@ public abstract class ZombieComponent extends Component {
 
     public Zombie getZombie() {
         return zombie;
+    }
+
+    @Override
+    public void onRemoved() {
+        Optional.ofNullable(timerAction).ifPresent(TimerAction::expire);
     }
 
     @Override

@@ -96,4 +96,13 @@ class PointsTest {
 
     assertFalse(p.getObservers().contains(o));
   }
+
+  @Test
+  void reset() {
+    Points p = new Points();
+    p.add(50);
+    p.reset();
+
+    assertEquals(Configs.getInstance().getInitialPoints(), p.getState());
+  }
 }

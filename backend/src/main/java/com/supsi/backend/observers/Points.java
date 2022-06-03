@@ -47,4 +47,9 @@ public class Points extends Subject {
 
     super.notifyObservers();
   }
+
+  public void reset() {
+    this.points.set(Configs.getInstance().getInitialPoints());
+    super.notifyObservers();
+  }
 }
